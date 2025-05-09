@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{ room.name }}</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p><strong>Location:</strong> {{ room.location }}</p>
+    <p><strong>Capacity:</strong> {{ room.capacity }}</p>
+    <p><strong>Description:</strong> {{ room.description }}</p>
+
+    <h2>Upcoming Reservations</h2>
+    {% if upcoming %}
+        <ul>
+            {% for res in upcoming %}
+                <li>{{ res.start_time }} – {{ res.end_time }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming reservations for this room.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <h2>Book this Room</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Reserve</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to make a reservation.</p>
+    {% endif %}
+
+    <p><a href="{% url 'room_list' %}">Back to all rooms</a></p>
+
+{% endblock %}

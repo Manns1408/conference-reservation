@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Available Conference Rooms</h1>
+    <ul>
+        {% for room in rooms %}
+            <li>
+                <strong>{{ room.name }}</strong> - {{ room.location }} (Capacity: {{ room.capacity }})<br>
+                <a href="{% url 'room_detail' room.pk %}">View & Book</a>
+            </li>
+        {% empty %}
+            <li>No rooms available.</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <h1>Room Status</h1>
+    <ul>
+        {% for entry in status_list %}
+            <li>{{ entry.room.name }}: {% if entry.occupied %}Occupied{% else %}Available{% endif %}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>Conference Room Booking</title>
+
+    <h1>Welcome to the Conference Room Reservation System</h1>
+    {% if reminder %}
+        <p>You have a reservation coming up at: {{ reminder.start_time }}</p>
+    {% else %}
+        <p>No upcoming reservations.</p>
+    {% endif %}
+
+
+{% endblock %}

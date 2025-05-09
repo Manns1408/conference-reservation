@@ -1,0 +1,8 @@
+Hi {{ reservation.user.first_name }},
+
+Your reservation for Room {{ reservation.room.name }} has been confirmed.
+
+Date: {{ reservation.start_time|date:"M d, Y" }}
+Time: {{ reservation.start_time|time }} – {{ reservation.end_time|time }}
+
+Thanks!

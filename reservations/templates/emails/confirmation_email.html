@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <h2>Hi {{ reservation.user.first_name }},</h2>
+        <p>Your reservation for <strong>{{ reservation.room.name }}</strong> has been confirmed.</p>
+        <p><strong>Date:</strong> {{ reservation.start_time|date:"M d, Y" }}</p>
+        <p><strong>Time:</strong> {{ reservation.start_time|time }} – {{ reservation.end_time|time }}</p>
+        <p>Thanks!</p>
+
+    </title>
+</head>
+<body>
+
+</body>
+</html>

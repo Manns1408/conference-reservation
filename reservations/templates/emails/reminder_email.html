@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.5;
+        }
+        .container {
+            padding: 20px;
+        }
+        .details {
+            margin-top: 10px;
+        }
+        .details li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Hi {{ reservation.user.first_name }},</p>
+
+        <p>This is a reminder for your upcoming reservation:</p>
+
+        <ul class="details">
+            <li><strong>Room:</strong> {{ reservation.room.name }}</li>
+            <li><strong>Location:</strong> {{ reservation.room.location }}</li>
+            <li><strong>Start Time:</strong> {{ reservation.start_time }}</li>
+        </ul>
+
+        <p>Please be on time.</p>
+        <p>Thank you!</p>
+    </div>
+</body>
+</html>

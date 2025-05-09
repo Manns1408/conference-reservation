@@ -1,0 +1,11 @@
+Hi {{ reservation.user.first_name }},
+
+This is a reminder for your upcoming reservation:
+
+Room: {{ reservation.room.name }}
+Location: {{ reservation.room.location }}
+Start Time: {{ reservation.start_time }}
+
+Please be on time.
+
+Thank you!

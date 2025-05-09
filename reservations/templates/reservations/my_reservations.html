@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div style="max-width: 700px; margin: auto; padding: 2rem;">
+    <h2>My Reservations</h2>
+
+    {% if reservations %}
+      <ul style="list-style-type: none; padding: 0;">
+        {% for res in reservations %}
+          <li style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ccc; border-radius: 5px;">
+            <strong>Room:</strong> {{ res.room.name }}<br>
+            <strong>Start:</strong> {{ res.start_time|date:"F j, Y, g:i a" }}<br>
+            <strong>End:</strong> {{ res.end_time|date:"F j, Y, g:i a" }}<br>
+            <a href="{% url 'reservation_cancel' res.pk %}" style="color: #e37171; font-weight: bold;">Cancel</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You have no reservations.</p>
+    {% endif %}
+  </div>
+{% endblock %}
