@@ -9,6 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.conf import settings
 from django.http import HttpResponse
 
 from .forms import ReservationForm, RegisterationForm
@@ -85,7 +86,8 @@ def room_detail(request, pk):
                 send_mail(
                     subject,
                     text_body,
-                    None,  # or settings.DEFAULT_FROM_EMAIL
+                    settings.DEFAULT_FROM_EMAIL
+
                     [res.user.email],
                     html_message=html_body
                 )

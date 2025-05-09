@@ -1,33 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Reservation Confirmation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
             color: #333;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #777;
         }
 
         .button {
@@ -42,28 +21,16 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
+    <h2>Hello {{ reservation.user.first_name }},</h2>
+    <p>Your reservation for <strong>Room {{ reservation.room.name }}</strong> has been confirmed.</p>
 
-        <h2>Reservation Confirmation</h2>
-    </div>
+    <p><strong>Date:</strong> {{ reservation.start_time|date:"F d, Y" }}<br>
+    <strong>Time:</strong> {{ reservation.start_time|time }} – {{ reservation.end_time|time }}</p>
 
-    <p>Hi {{ reservation.user.first_name }},</p>
+    <p>We look forward to seeing you!</p>
 
-    <p>Your booking has been confirmed for:</p>
+    <a href="http://127.0.0.1:8000/myReservations/" class="button">View My Reservations</a>
 
-    <ul>
-        <li><strong>Room:</strong> {{ reservation.room.name }}</li>
-        <li><strong>Location:</strong> {{ reservation.room.location }}</li>
-        <li><strong>Start:</strong> {{ reservation.start_time }}</li>
-        <li><strong>End:</strong> {{ reservation.end_time }}</li>
-    </ul>
-
-    <p>Thank you for using our reservation system!</p>
-
-    <div class="footer">
-        © 2025 Conference System | All rights reserved
-    </div>
-</div>
+    <p>Thanks,<br>The Conference Room Team</p>
 </body>
 </html>
