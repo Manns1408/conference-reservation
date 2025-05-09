@@ -4,16 +4,18 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import redirect_to_login
-from django.core.mail import EmailMultiAlternatives
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 from .forms import ReservationForm, RegisterationForm
 from .models import Rooms, TheReservation
 
 
-def homePage(request):
+def home_page(request):
     reminder = None
     if request.user.is_authenticated:
         now = timezone.now()
@@ -74,22 +76,24 @@ def room_detail(request, pk):
                 res.clean()
                 res.save()
 
-                # Send confirmation email using SendGrid
-                ctx = {'reservation': res}
+                # ✅ Send confirmation email
+                context = {'reservation': res}
                 subject = 'Your Room Reservation is Confirmed'
-                from_email = 'no-reply@conference-booking.com'
-                to_email = [res.user.email]
-                text_body = render_to_string('emails/confirmation_email.txt', ctx)
-                html_body = render_to_string('emails/confirmation_email.html', ctx)
+                text_body = render_to_string('emails/confirmation_email.txt', context)
+                html_body = render_to_string('emails/confirmation_email.html', context)
 
-                email = EmailMultiAlternatives(subject, text_body, from_email, to_email)
-                email.attach_alternative(html_body, "text/html")
-                email.send()
+                send_mail(
+                    subject,
+                    text_body,
+                    None,  # or settings.DEFAULT_FROM_EMAIL
+                    [res.user.email],
+                    html_message=html_body
+                )
 
                 messages.success(request, 'Reservation confirmed (email sent).')
                 return redirect('my_reservations')
             except Exception as e:
-                messages.error(request, str(e))
+                messages.error(request, f"Error: {e}")
         else:
             for field, errs in form.errors.items():
                 for err in errs:
@@ -131,7 +135,7 @@ def reservation_editing(request, pk):
     else:
         form = ReservationForm(instance=res)
 
-    return render(request, 'reservations/reservation_edit.html', {
+    return render(request, 'reservations/reservations_edit.html', {
         'reservation': res,
         'form': form,
     })
@@ -178,3 +182,14 @@ def room_status(request):
         'slot_start': start,
         'slot_end': end,
     })
+
+
+def test_email(request):
+    send_mail(
+        subject="Test Email",
+        message="This is a test email from Django using SendGrid.",
+        from_email="mannatsareen1998@gmail.com",  # must match verified sender
+        recipient_list=["mannatsareen1998@gmail.com"],
+        fail_silently=False,
+    )
+    return HttpResponse("Test email sent.")

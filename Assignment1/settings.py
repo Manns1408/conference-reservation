@@ -72,7 +72,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'  # send the user to home after login
 LOGOUT_REDIRECT_URL = 'home'  # optional: after logout
 
-# ✅ EMAIL for development (logs to console)
+
 
 # ✅ EMAIL BACKEND for SendGrid (Secure & Production-Ready)
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
@@ -82,8 +82,8 @@ import os
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
 # Optional Settings
-SENDGRID_SANDBOX_MODE_IN_DEBUG = DEBUG
-SENDGRID_ECHO_TO_STDOUT = DEBUG
+
+SENDGRID_ECHO_TO_STDOUT = True
 DEFAULT_FROM_EMAIL = "mannatsareen1998@gmail.com"
 
 

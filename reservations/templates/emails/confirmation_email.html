@@ -1,17 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>
-        <h2>Hi {{ reservation.user.first_name }},</h2>
-        <p>Your reservation for <strong>{{ reservation.room.name }}</strong> has been confirmed.</p>
-        <p><strong>Date:</strong> {{ reservation.start_time|date:"M d, Y" }}</p>
-        <p><strong>Time:</strong> {{ reservation.start_time|time }} – {{ reservation.end_time|time }}</p>
-        <p>Thanks!</p>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 20px;
+        }
 
-    </title>
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin-top: 20px;
+            background-color: #2b6cb0;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <div class="header">
 
+        <h2>Reservation Confirmation</h2>
+    </div>
+
+    <p>Hi {{ reservation.user.first_name }},</p>
+
+    <p>Your booking has been confirmed for:</p>
+
+    <ul>
+        <li><strong>Room:</strong> {{ reservation.room.name }}</li>
+        <li><strong>Location:</strong> {{ reservation.room.location }}</li>
+        <li><strong>Start:</strong> {{ reservation.start_time }}</li>
+        <li><strong>End:</strong> {{ reservation.end_time }}</li>
+    </ul>
+
+    <p>Thank you for using our reservation system!</p>
+
+    <div class="footer">
+        © 2025 Conference System | All rights reserved
+    </div>
+</div>
 </body>
 </html>
