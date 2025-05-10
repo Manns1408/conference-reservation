@@ -11,6 +11,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Assignment1.settings")
 # Get the WSGI app
 application = get_wsgi_application()
 
-# Expose it as a handler for Vercel
-# Vercel will look for "app" or "handler"
-app = application
+# Vercel expects this function
+def handler(environ, start_response):
+    return application(environ, start_response)
