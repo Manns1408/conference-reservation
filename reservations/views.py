@@ -17,7 +17,10 @@ from .models import Rooms, TheReservation
 
 
 def home_page(request):
+    rooms = Rooms.objects.all()
     reminder = None
+    reservations = []
+
     if request.user.is_authenticated:
         now = timezone.now()
         reminder = TheReservation.objects.filter(
@@ -25,8 +28,16 @@ def home_page(request):
             start_time__gte=now,
             start_time__lt=now + timedelta(hours=24)
         ).order_by('start_time').first()
-    return render(request, 'home.html', {'reminder': reminder})
 
+        reservations = TheReservation.objects.filter(
+            user=request.user
+        ).order_by('start_time')
+
+    return render(request, 'home.html', {
+        'rooms': rooms,
+        'reminder': reminder,
+        'reservations': reservations
+    })
 
 def registering(request):
     if request.method == 'POST':
@@ -86,10 +97,9 @@ def room_detail(request, pk):
                 send_mail(
                     subject,
                     text_body,
-                    settings.DEFAULT_FROM_EMAIL
-
-                    [res.user.email],
-                    html_message=html_body
+                    settings.DEFAULT_FROM_EMAIL,  #  use this for from_email
+                    [res.user.email],  #  recipient list
+                    html_message=html_body  #  optional HTML version
                 )
 
                 messages.success(request, 'Reservation confirmed (email sent).')

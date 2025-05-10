@@ -7,6 +7,7 @@
         * {
             box-sizing: border-box;
         }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -14,22 +15,27 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         header, footer {
             background-color: #333;
             color: white;
             padding: 1rem;
         }
+
         main {
             flex: 1;
             padding: 2rem;
         }
+
         a {
             color: #1e90ff;
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         ul {
             list-style: disc;
             padding-left: 2rem;
@@ -37,25 +43,38 @@
     </style>
 </head>
 <body>
-    <header>
-        <h2>Conference Room Reservation System</h2>
-    </header>
-
-    <main>
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+<header>
+    <h2>Te Whare Rūnanga Ltd</h2>
+    <nav style="margin-top: 1rem;">
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}!</span>
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="margin-left:1rem;">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'register' %}">Register</a>
         {% endif %}
+    </nav>
+</header>
 
-        {% block content %}
-        {% endblock %}
-    </main>
 
-    <footer>
-        &copy; 2025 Mannat Sareen
-    </footer>
+<main>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    &copy; 2025 Mannat Sareen
+</footer>
 </body>
 </html>

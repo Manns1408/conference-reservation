@@ -74,6 +74,9 @@ LOGOUT_REDIRECT_URL = 'home'  # optional: after logout
 
 
 
+
+
+
 # ✅ EMAIL BACKEND for SendGrid (Secure & Production-Ready)
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 

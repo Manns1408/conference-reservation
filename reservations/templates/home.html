@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
     <title>Conference Room Booking</title>
 
     <h1>Welcome to the Conference Room Reservation System</h1>
@@ -9,6 +10,37 @@
     {% else %}
         <p>No upcoming reservations.</p>
     {% endif %}
+
+    <h2>Available Rooms</h2>
+    <ul>
+        {% for room in rooms %}
+            <li>
+                <strong>{{ room.name }}</strong> – {{ room.location }} ({{ room.capacity }} seats)
+                <a href="{% url 'room_detail' room.pk %}">Book</a>
+            </li>
+        {% empty %}
+            <li>No rooms available.</li>
+        {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated %}
+        <h2>My Reservations</h2>
+        <ul>
+            {% for res in reservations %}
+                <li>
+                    <strong>{{ res.room.name }}</strong> – {{ res.start_time|date:"M d, H:i" }}
+                    to {{ res.end_time|date:"H:i" }}
+                    <form method="post" action="{% url 'reservations_cancel' res.pk %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Cancel</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>No reservations found.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 
 
 {% endblock %}

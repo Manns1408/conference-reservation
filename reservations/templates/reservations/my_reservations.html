@@ -11,7 +11,7 @@
             <strong>Room:</strong> {{ res.room.name }}<br>
             <strong>Start:</strong> {{ res.start_time|date:"F j, Y, g:i a" }}<br>
             <strong>End:</strong> {{ res.end_time|date:"F j, Y, g:i a" }}<br>
-            <a href="{% url 'reservation_cancel' res.pk %}" style="color: #e37171; font-weight: bold;">Cancel</a>
+            <a href="{% url 'reservations_cancel' res.pk %}" style="color: #e37171; font-weight: bold;">Cancel</a>
           </li>
         {% endfor %}
       </ul>
