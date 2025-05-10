@@ -87,6 +87,7 @@ SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 # Optional Settings
 
 SENDGRID_ECHO_TO_STDOUT = True
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 DEFAULT_FROM_EMAIL = "mannatsareen1998@gmail.com"
 
 

@@ -39,6 +39,7 @@ def home_page(request):
         'reservations': reservations
     })
 
+
 def registering(request):
     if request.method == 'POST':
         form = RegisterationForm(request.POST)
@@ -97,9 +98,10 @@ def room_detail(request, pk):
                 send_mail(
                     subject,
                     text_body,
-                    settings.DEFAULT_FROM_EMAIL,  #  use this for from_email
-                    [res.user.email],  #  recipient list
-                    html_message=html_body  #  optional HTML version
+                    settings.DEFAULT_FROM_EMAIL,
+                    [res.user.email],
+                    html_message=html_body,
+                    fail_silently=False,
                 )
 
                 messages.success(request, 'Reservation confirmed (email sent).')
