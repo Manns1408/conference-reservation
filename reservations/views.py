@@ -15,6 +15,18 @@ from django.http import HttpResponse
 from .forms import ReservationForm, RegisterationForm
 from .models import Rooms, TheReservation
 
+from rest_framework import viewsets
+from django.contrib.auth.models import User
+from .serializers import RoomSerializer, ReservationSerializer, UserSerializer
+from rest_framework.permissions import IsAuthenticated
+
+
+
+
+
+
+
+
 
 def home_page(request):
     rooms = Rooms.objects.all()
@@ -207,3 +219,20 @@ def test_email(request):
         fail_silently=False,
     )
     return HttpResponse("Test email sent.")
+
+
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Rooms.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [IsAuthenticated]
+
+class ReservationViewSet(viewsets.ModelViewSet):
+    queryset = TheReservation.objects.all()
+    serializer_class = ReservationSerializer
+    permission_classes = [IsAuthenticated]
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
